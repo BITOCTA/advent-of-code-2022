@@ -1,4 +1,4 @@
-with open("/Users/artem/advent-of-code-2022/day2/input.txt", "r") as file:
+with open("./input.txt", "r") as file:
     data = file.read()
 
 total = 0
