@@ -4,6 +4,7 @@ with open("./input_stacks.txt", "r") as file:
 with open("./input_commands.txt", "r") as file:
     commands_data = file.read()
 
+
 def create_stacks(data):
     lines = data.splitlines()
 
@@ -30,11 +31,13 @@ for command in commands:
     command = [int(command_split[1]), int(command_split[3]), int(command_split[5])]
 
     for i in range(command[0]):
-        stacks[command[2]-1].insert(0, stacks[command[1]-1].pop(0))
-    
-    stacks_deep_copy[command[2]-1] = [*stacks_deep_copy[command[1]-1][0:command[0]], *stacks_deep_copy[command[2]-1] ]
-    stacks_deep_copy[command[1]-1] = stacks_deep_copy[command[1]-1][command[0]:]
+        stacks[command[2] - 1].insert(0, stacks[command[1] - 1].pop(0))
 
+    stacks_deep_copy[command[2] - 1] = [
+        *stacks_deep_copy[command[1] - 1][0 : command[0]],
+        *stacks_deep_copy[command[2] - 1],
+    ]
+    stacks_deep_copy[command[1] - 1] = stacks_deep_copy[command[1] - 1][command[0] :]
 
 
 result = "".join([s[0] for s in stacks])
