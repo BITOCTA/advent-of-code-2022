@@ -1,5 +1,3 @@
-# TODO: refactor
-
 from collections import defaultdict
 
 with open("./input.txt", "r") as file:
@@ -25,21 +23,15 @@ def add_size_to_dirs(dir_path, size):
 
 for line in lines:
     line_s = line.split(" ")
-    if line_s[0] == "$" and line_s[1] == "ls":
-        continue
     if line_s[0] == "$" and line_s[1] == "cd":
         if line_s[2] == "..":
             current_dir = "/".join(
                 current_dir.split("/")[0 : (len(current_dir.split("/")) - 1)]
             )
-        elif line_s[2] == "/":
-            continue
-        else:
+        elif line_s[2] != "/":
             current_dir = current_dir + "/" + line_s[2]
-    else:
-        if line_s[0] == "dir":
-            continue
-        else:
+    elif line[0] != "$":
+        if line_s[0] != "dir":
             add_size_to_dirs(current_dir, int(line_s[0]))
 
 
@@ -55,12 +47,11 @@ for key, value in structure_dict.items():
     if value <= 100000:
         total_sum += value
     if (
-        total_space - (used_space - value) >= 30000000
+        total_space - (used_space - value) >= needed_space
         and total_space - (used_space - value) < space_after_deletion
     ):
         space_after_deletion = total_space - (used_space - value)
         directory_to_delete = value
 
 print(total_sum)
-print(structure_dict[""])
 print(directory_to_delete)
